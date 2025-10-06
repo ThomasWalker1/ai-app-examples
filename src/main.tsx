@@ -7,6 +7,7 @@ import { GenerateJson } from './pages/GenerateJson'
 import { Chat } from "./pages/Chat";
 import { AdaptiveLearning } from './pages/AdaptiveLearning'
 import AdaptiveQuestions from './pages/AdaptiveQuestions'
+import { PhysicsGame } from './pages/PhysicsGame'
 import { NotFound } from './pages/NotFound'
 import { NavBar } from './components/NavBar'
 import { AuthProvider } from './context/AuthProvider'
@@ -28,6 +29,7 @@ createRoot(root).render(
           <Route path="/chat" element={<Chat />} />
           <Route path="/adaptive-learning" element={<AdaptiveLearning />} />
           <Route path="/adaptive-questions" element={<AdaptiveQuestions />} />
+          <Route path="/physics-game" element={<PhysicsGame />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>

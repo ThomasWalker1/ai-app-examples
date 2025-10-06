@@ -1,0 +1,665 @@
+/* Physics Game Styles */
+.physics-game {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.game-header {
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.game-header h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+}
+
+.game-header p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.reset-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.reset-btn:hover {
+  background: #c0392b;
+}
+
+/* Goal Selection */
+.goal-selection {
+  text-align: center;
+}
+
+.goal-selection h2 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.goal-selection p {
+  color: #7f8c8d;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.goal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.goal-option {
+  background: white;
+  border: 2px solid #ecf0f1;
+  border-radius: 10px;
+  padding: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.goal-option:hover {
+  border-color: #3498db;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
+}
+
+.goal-option:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.goal-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.goal-option h3 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.goal-option p {
+  color: #7f8c8d;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Goal Display */
+.goal-display {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+
+.goal-display h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.goal-display h3 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+}
+
+.goal-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  opacity: 0.95;
+}
+
+.goal-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.expected-steps h4,
+.answer-format h4 {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.expected-steps ul {
+  list-style: none;
+  padding: 0;
+}
+
+.expected-steps li {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  border-left: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.answer-format p {
+  margin: 0;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 5px;
+}
+
+/* Game Content Layout */
+.game-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.game-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Steps Progress */
+.steps-progress {
+  background: white;
+  border: 1px solid #ecf0f1;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.steps-progress h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.steps-list {
+  margin-bottom: 20px;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ecf0f1;
+}
+
+.step-item.completed {
+  background: #d5f4e6;
+  border-color: #27ae60;
+}
+
+.step-item.current {
+  background: #e3f2fd;
+  border-color: #2196f3;
+}
+
+.step-item.ready {
+  background: #fff3e0;
+  border-color: #ff9800;
+}
+
+.step-number {
+  background: #3498db;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.step-item.completed .step-number {
+  background: #27ae60;
+}
+
+.step-item.ready .step-number {
+  background: #ff9800;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-description {
+  margin-bottom: 5px;
+  color: #2c3e50;
+  line-height: 1.4;
+}
+
+.step-status {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.step-status.valid {
+  color: #27ae60;
+}
+
+.step-status.invalid {
+  color: #e74c3c;
+}
+
+.progress-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15px;
+  border-top: 1px solid #ecf0f1;
+}
+
+.move-to-final-btn {
+  background: #f39c12;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.move-to-final-btn:hover {
+  background: #e67e22;
+}
+
+/* Step Input */
+.step-input {
+  background: white;
+  border: 1px solid #ecf0f1;
+  border-radius: 10px;
+  padding: 25px;
+}
+
+.step-input h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.step-input p {
+  color: #7f8c8d;
+  margin-bottom: 10px;
+}
+
+.step-input ul {
+  color: #7f8c8d;
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.step-input textarea {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #ecf0f1;
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+  margin-bottom: 15px;
+  transition: border-color 0.3s;
+}
+
+.step-input textarea:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.step-input button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.step-input button:hover:not(:disabled) {
+  background: #2980b9;
+}
+
+.step-input button:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+/* Step Feedback */
+.step-feedback {
+  background: white;
+  border: 1px solid #ecf0f1;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.step-feedback.valid {
+  border-left: 4px solid #27ae60;
+}
+
+.step-feedback.invalid {
+  border-left: 4px solid #e74c3c;
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.step-header h4 {
+  color: #2c3e50;
+  margin: 0;
+}
+
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.status-badge.valid {
+  background: #d5f4e6;
+  color: #27ae60;
+}
+
+.status-badge.invalid {
+  background: #fadbd8;
+  color: #e74c3c;
+}
+
+.step-description {
+  margin-bottom: 15px;
+}
+
+.step-description strong {
+  color: #2c3e50;
+}
+
+.step-description p {
+  color: #7f8c8d;
+  font-style: italic;
+  margin: 5px 0 0 0;
+}
+
+.feedback-content {
+  margin-bottom: 15px;
+}
+
+.feedback-content strong {
+  color: #2c3e50;
+}
+
+.feedback-content p {
+  color: #2c3e50;
+  margin: 5px 0 0 0;
+  line-height: 1.5;
+}
+
+.suggestions {
+  margin-bottom: 15px;
+}
+
+.suggestions strong {
+  color: #2c3e50;
+}
+
+.suggestions ul {
+  margin: 5px 0 0 0;
+  padding-left: 20px;
+}
+
+.suggestions li {
+  color: #7f8c8d;
+  margin-bottom: 5px;
+}
+
+.step-status {
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.status-complete {
+  background: #d5f4e6;
+  color: #27ae60;
+}
+
+.status-incomplete {
+  background: #fef9e7;
+  color: #f39c12;
+}
+
+/* Final Answer Section */
+.final-answer-section {
+  background: white;
+  border: 1px solid #ecf0f1;
+  border-radius: 10px;
+  padding: 25px;
+}
+
+.final-answer-input h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.final-answer-input p {
+  color: #7f8c8d;
+  margin-bottom: 15px;
+}
+
+.final-answer-input input {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #ecf0f1;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  transition: border-color 0.3s;
+}
+
+.final-answer-input input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.final-answer-input button {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.final-answer-input button:hover:not(:disabled) {
+  background: #229954;
+}
+
+.final-answer-input button:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+/* Final Answer Feedback */
+.final-answer-feedback {
+  background: white;
+  border: 1px solid #ecf0f1;
+  border-radius: 10px;
+  padding: 25px;
+}
+
+.final-answer-feedback.correct {
+  border-left: 4px solid #27ae60;
+}
+
+.final-answer-feedback.incorrect {
+  border-left: 4px solid #e74c3c;
+}
+
+.feedback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.feedback-header h3 {
+  color: #2c3e50;
+  margin: 0;
+}
+
+.result-badge {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.result-badge.correct {
+  background: #d5f4e6;
+  color: #27ae60;
+}
+
+.result-badge.incorrect {
+  background: #fadbd8;
+  color: #e74c3c;
+}
+
+.answer-display,
+.correct-answer,
+.feedback-content,
+.explanation {
+  margin-bottom: 20px;
+}
+
+.answer-display strong,
+.correct-answer strong,
+.feedback-content strong,
+.explanation strong {
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.answer-display p,
+.correct-answer p,
+.feedback-content p,
+.explanation p {
+  color: #2c3e50;
+  margin: 0;
+  line-height: 1.5;
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 5px;
+}
+
+.game-complete {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.game-complete h4 {
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.try-again {
+  background: #fef9e7;
+  color: #f39c12;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Loading States */
+.loading-state {
+  text-align: center;
+  padding: 40px;
+  color: #7f8c8d;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ecf0f1;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .physics-game {
+    padding: 15px;
+  }
+  
+  .game-header h1 {
+    font-size: 2rem;
+  }
+  
+  .reset-btn {
+    position: static;
+    margin-top: 15px;
+  }
+  
+  .goal-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .game-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .goal-details {
+    grid-template-columns: 1fr;
+  }
+  
+  .step-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .step-number {
+    align-self: flex-start;
+  }
+}

@@ -12,6 +12,7 @@ export const Home = () => {
         <li><Link to="/chat">Chat</Link></li>
         <li><Link to="/adaptive-learning">Adaptive Learning</Link></li>
         <li><Link to="/adaptive-questions">Adaptive Questions</Link></li>
+        <li><Link to="/physics-game">Physics Problem Solver</Link></li>
       </ul>
     </nav>
   </>;
