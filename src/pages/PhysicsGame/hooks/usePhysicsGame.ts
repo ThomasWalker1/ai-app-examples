@@ -18,7 +18,7 @@ type GamePhase =
   | 'PROVIDING_FINAL_ANSWER'
   | 'GAME_COMPLETE';
 
-interface GameStep {
+export interface GameStep {
   stepNumber: number;
   description: string;
   feedback: StepFeedback | null;

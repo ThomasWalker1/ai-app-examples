@@ -1,5 +1,5 @@
 import React from 'react';
-import { GameStep } from '../../hooks/usePhysicsGame';
+import { GameStep } from '../hooks/usePhysicsGame';
 
 interface StepsProgressProps {
   steps: GameStep[];
