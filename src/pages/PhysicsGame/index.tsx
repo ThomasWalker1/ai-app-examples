@@ -54,93 +54,91 @@ export const PhysicsGame = () => {
 
       {phase === 'STEP_DESCRIPTION' && currentGoal && (
         <div className="game-content">
-          <GoalDisplay goal={currentGoal} />
+          <div className="challenge-panel">
+            <GoalDisplay goal={currentGoal} />
+          </div>
           
-          <div className="game-main">
-            <div className="steps-section">
-              <StepsProgress 
-                steps={steps}
-                currentStepNumber={currentStepNumber}
-                onMoveToFinalAnswer={moveToFinalAnswer}
+          <div className="interaction-panel">
+            <StepsProgress 
+              steps={steps}
+              currentStepNumber={currentStepNumber}
+              onMoveToFinalAnswer={moveToFinalAnswer}
+            />
+            
+            {steps.map((step) => (
+              <StepFeedback
+                key={step.stepNumber}
+                stepNumber={step.stepNumber}
+                description={step.description}
+                feedback={step.feedback!}
               />
-              
-              {steps.map((step) => (
-                <StepFeedback
-                  key={step.stepNumber}
-                  stepNumber={step.stepNumber}
-                  description={step.description}
-                  feedback={step.feedback!}
-                />
-              ))}
-              
-              <StepInput
-                stepNumber={currentStepNumber}
-                onSubmit={submitStep}
-                isLoading={isLoading}
-              />
-            </div>
+            ))}
+            
+            <StepInput
+              stepNumber={currentStepNumber}
+              onSubmit={submitStep}
+              isLoading={isLoading}
+            />
           </div>
         </div>
       )}
 
       {phase === 'PROVIDING_FINAL_ANSWER' && currentGoal && (
         <div className="game-content">
-          <GoalDisplay goal={currentGoal} />
+          <div className="challenge-panel">
+            <GoalDisplay goal={currentGoal} />
+          </div>
           
-          <div className="game-main">
-            <div className="steps-section">
-              <StepsProgress 
-                steps={steps}
-                currentStepNumber={currentStepNumber}
-                onMoveToFinalAnswer={moveToFinalAnswer}
-              />
-              
-              {steps.map((step) => (
-                <StepFeedback
-                  key={step.stepNumber}
-                  stepNumber={step.stepNumber}
-                  description={step.description}
-                  feedback={step.feedback!}
-                />
-              ))}
-            </div>
+          <div className="interaction-panel">
+            <StepsProgress 
+              steps={steps}
+              currentStepNumber={currentStepNumber}
+              onMoveToFinalAnswer={moveToFinalAnswer}
+            />
             
-            <div className="final-answer-section">
-              <FinalAnswerInput
-                onSubmit={submitFinalAnswer}
-                isLoading={isLoading}
+            {steps.map((step) => (
+              <StepFeedback
+                key={step.stepNumber}
+                stepNumber={step.stepNumber}
+                description={step.description}
+                feedback={step.feedback!}
               />
-            </div>
+            ))}
+            
+            <FinalAnswerInput
+              onSubmit={submitFinalAnswer}
+              isLoading={isLoading}
+            />
           </div>
         </div>
       )}
 
       {phase === 'GAME_COMPLETE' && finalFeedback && (
         <div className="game-content">
-          <div className="game-main">
-            <div className="steps-section">
-              <StepsProgress 
-                steps={steps}
-                currentStepNumber={currentStepNumber}
-                onMoveToFinalAnswer={moveToFinalAnswer}
-              />
-              
-              {steps.map((step) => (
-                <StepFeedback
-                  key={step.stepNumber}
-                  stepNumber={step.stepNumber}
-                  description={step.description}
-                  feedback={step.feedback!}
-                />
-              ))}
-            </div>
+          <div className="challenge-panel">
+            <GoalDisplay goal={currentGoal!} />
+          </div>
+          
+          <div className="interaction-panel">
+            <StepsProgress 
+              steps={steps}
+              currentStepNumber={currentStepNumber}
+              onMoveToFinalAnswer={moveToFinalAnswer}
+            />
             
-            <div className="final-answer-section">
-              <FinalAnswerFeedback
-                answer={finalAnswer}
-                feedback={finalFeedback}
+            {steps.map((step) => (
+              <StepFeedback
+                key={step.stepNumber}
+                stepNumber={step.stepNumber}
+                description={step.description}
+                feedback={step.feedback!}
               />
-            </div>
+            ))}
+            
+            <FinalAnswerFeedback
+              answer={finalAnswer}
+              feedback={finalFeedback}
+            />
           </div>
         </div>
       )}

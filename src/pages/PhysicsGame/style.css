@@ -1,9 +1,16 @@
 /* Physics Game Styles */
 .physics-game {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  width: 100%;
+  /* Override the main element's max-width constraint */
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  max-width: 1200px;
 }
 
 .game-header {
@@ -60,9 +67,10 @@
 
 .goal-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
   margin-bottom: 30px;
+  max-width: 100%;
 }
 
 .goal-option {
@@ -132,22 +140,22 @@
 
 .goal-details {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   gap: 25px;
 }
 
-.expected-steps h4,
+.challenge-instructions h4,
 .answer-format h4 {
   margin-bottom: 10px;
   font-size: 1.1rem;
 }
 
-.expected-steps ul {
+.challenge-instructions ul {
   list-style: none;
   padding: 0;
 }
 
-.expected-steps li {
+.challenge-instructions li {
   background: rgba(255, 255, 255, 0.1);
   padding: 8px 12px;
   margin-bottom: 8px;
@@ -165,8 +173,20 @@
 /* Game Content Layout */
 .game-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 40px;
+  max-width: 100%;
+}
+
+.challenge-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.interaction-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .game-main {
@@ -310,7 +330,7 @@
 }
 
 .step-input textarea {
-  width: 100%;
+  width: 90%;
   padding: 15px;
   border: 2px solid #ecf0f1;
   border-radius: 8px;
@@ -644,14 +664,18 @@
   
   .goal-grid {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
   
   .game-content {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
+  
   
   .goal-details {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
   
   .step-item {

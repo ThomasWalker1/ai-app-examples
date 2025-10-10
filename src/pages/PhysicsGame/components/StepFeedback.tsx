@@ -1,5 +1,6 @@
 import React from 'react';
 import { StepFeedback as StepFeedbackType } from '../schemas';
+import { ModelOutput } from '../../../components/ModelOutput';
 
 interface StepFeedbackProps {
   stepNumber: number;
@@ -24,7 +25,7 @@ export const StepFeedback: React.FC<StepFeedbackProps> = ({ stepNumber, descript
       
       <div className="feedback-content">
         <strong>Feedback:</strong>
-        <p>{feedback.feedback}</p>
+        <ModelOutput value={feedback.feedback} />
       </div>
       
       {feedback.suggestions && feedback.suggestions.length > 0 && (
@@ -32,7 +33,9 @@ export const StepFeedback: React.FC<StepFeedbackProps> = ({ stepNumber, descript
           <strong>Suggestions:</strong>
           <ul>
             {feedback.suggestions.map((suggestion, index) => (
-              <li key={index}>{suggestion}</li>
+              <li key={index}>
+                <ModelOutput value={suggestion} />
+              </li>
             ))}
           </ul>
         </div>

@@ -20,12 +20,13 @@ export const StepInput: React.FC<StepInputProps> = ({ stepNumber, onSubmit, isLo
   return (
     <div className="step-input">
       <h3>Step {stepNumber}: Describe Your Approach</h3>
-      <p>Explain what you would do in this step. Be specific about:</p>
+      <p>Think about what you need to do next to solve this problem. Be specific about:</p>
       <ul>
-        <li>What measurements you would take</li>
-        <li>What equipment you would use</li>
-        <li>What calculations you would perform</li>
-        <li>Any assumptions you're making</li>
+        <li>What measurements or information you need to gather</li>
+        <li>What equipment or methods you would use</li>
+        <li>What calculations or analysis you would perform</li>
+        <li>Any assumptions or simplifications you're making</li>
+        <li>How this step helps you reach your goal</li>
       </ul>
       
       <form onSubmit={handleSubmit}>

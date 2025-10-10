@@ -1,5 +1,6 @@
 import React from 'react';
 import { FinalAnswerFeedback as FinalAnswerFeedbackType } from '../schemas';
+import { ModelOutput } from '../../../components/ModelOutput';
 
 interface FinalAnswerFeedbackProps {
   answer: string;
@@ -30,12 +31,12 @@ export const FinalAnswerFeedback: React.FC<FinalAnswerFeedbackProps> = ({ answer
       
       <div className="feedback-content">
         <strong>Feedback:</strong>
-        <p>{feedback.feedback}</p>
+        <ModelOutput value={feedback.feedback} />
       </div>
       
       <div className="explanation">
         <strong>Explanation:</strong>
-        <p>{feedback.explanation}</p>
+        <ModelOutput value={feedback.explanation} />
       </div>
       
       {feedback.gameComplete ? (

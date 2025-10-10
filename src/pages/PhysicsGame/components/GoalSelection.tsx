@@ -9,37 +9,37 @@ const GOAL_OPTIONS = [
   {
     id: 'gravity',
     title: 'Gravitational Acceleration',
-    description: 'Estimate Earth\'s gravitational acceleration using experimental methods',
+    description: 'Determine Earth\'s gravitational acceleration',
     icon: '🌍'
   },
   {
     id: 'motion',
     title: 'Projectile Motion',
-    description: 'Calculate the trajectory and landing point of a projectile',
+    description: 'Predict the horizontal distance traveled by a projectile',
     icon: '🚀'
   },
   {
     id: 'energy',
     title: 'Energy Conservation',
-    description: 'Determine the speed of an object using energy principles',
+    description: 'Find the final speed of a moving object',
     icon: '⚡'
   },
   {
     id: 'forces',
     title: 'Force Analysis',
-    description: 'Calculate forces acting on objects in various situations',
+    description: 'Calculate the net force on an object',
     icon: '💪'
   },
   {
     id: 'oscillations',
     title: 'Simple Harmonic Motion',
-    description: 'Find the period and frequency of oscillating systems',
+    description: 'Determine the period of an oscillating system',
     icon: '🔄'
   },
   {
     id: 'thermodynamics',
     title: 'Heat Transfer',
-    description: 'Calculate temperature changes and heat flow',
+    description: 'Calculate the final temperature after heat exchange',
     icon: '🌡️'
   }
 ];

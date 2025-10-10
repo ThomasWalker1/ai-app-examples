@@ -76,17 +76,25 @@ export const usePhysicsGame = () => {
       const prompt = `Create a physics problem for students to solve. The problem should be about: ${goalType}
 
 The problem should:
-- Be solvable through a series of logical steps
-- Require the student to describe their methodology
+- Be open-ended and require the student to determine their own approach
+- Have a clear, specific goal (what they need to find/calculate)
+- Include rich context and description of the scenario
+- Be solvable through multiple possible methods
+- Require the student to describe their methodology and reasoning
 - Have a clear numerical answer
 - Be appropriate for high school or early college level
 - Involve real physics concepts and calculations
 
-Examples of good problems:
-- Estimating Earth's gravitational acceleration using a pendulum
-- Calculating the speed of a falling object
-- Determining the force needed to move an object
-- Finding the period of a simple harmonic oscillator
+IMPORTANT: 
+- Do NOT provide expected steps or methodology
+- Do NOT give hints about how to solve the problem
+- DO provide interesting context, scenario details, and background information
+- The student should determine their own approach completely
+
+Examples of good descriptive problems:
+- "A physics student wants to determine Earth's gravitational acceleration using experimental methods. They have access to various equipment and can design their own experiment. What value do they find?"
+- "An engineer needs to predict how far a projectile will travel horizontally when launched from a specific height. The projectile has known properties and the launch conditions can be measured. What is the horizontal distance?"
+- "A scientist is studying the motion of an object and needs to determine its final speed after undergoing certain changes. The object's initial conditions and the forces acting on it can be observed. What is the final speed?"
 
 ${mathWithMarkdown}`;
 
@@ -127,11 +135,13 @@ ${mathWithMarkdown}`;
         .map(step => `Step ${step.stepNumber}: ${step.description}`)
         .join('\n');
 
-      const prompt = `You are a physics tutor helping a student solve this problem:
+      const prompt = `You are a physics tutor helping a student solve this problem.
 
-GOAL: ${session.currentGoal.goal}
+IMPORTANT CONTEXT: The student only sees this goal title: "${session.currentGoal.goal}"
+The student does NOT see any description, setup details, or additional context about the problem.
+
+Full problem context (for your reference only):
 DESCRIPTION: ${session.currentGoal.description}
-EXPECTED STEPS: ${session.currentGoal.expectedSteps.join(', ')}
 
 Previous completed steps:
 ${previousStepsContext || 'None yet'}
@@ -140,10 +150,17 @@ The student has described their next step as:
 "${stepDescription}"
 
 Evaluate this step and provide feedback. Consider:
-1. Is this step logically sound and on the right track?
-2. Are there any errors in the student's approach?
+1. Is this step logically sound and on the right track toward solving the goal?
+2. Are there any errors in the student's approach or reasoning?
 3. Is the step complete enough to move forward?
 4. What suggestions do you have for improvement?
+5. Does the student's approach make physical sense?
+
+CRITICAL: Since the student only sees the goal title "${session.currentGoal.goal}" and has no other context, your feedback should:
+- Provide helpful context about what this type of problem typically involves
+- Guide them toward understanding the relevant physics concepts
+- Help them think about what information they might need
+- Do NOT assume they know any setup details or specific conditions
 
 ${mathWithMarkdown}`;
 

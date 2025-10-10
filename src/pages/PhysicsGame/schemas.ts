@@ -3,7 +3,7 @@ import * as z from "zod";
 const physicsGoalSchema = z.object({
   goal: z.string().describe('The physics problem or goal the student needs to solve'),
   description: z.string().describe('A detailed description of what the student needs to accomplish'),
-  expectedSteps: z.array(z.string()).describe('The key steps that should be involved in solving this problem'),
+  expectedSteps: z.array(z.string()).optional().describe('The key steps that should be involved in solving this problem (for AI evaluation only)'),
   correctAnswer: z.string().describe('The correct final answer to the problem'),
   units: z.string().optional().describe('The expected units for the answer (e.g., m/s², N, J)')
 }).describe('A physics problem goal with expected solution steps');
