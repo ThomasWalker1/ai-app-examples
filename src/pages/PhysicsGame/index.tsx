@@ -18,12 +18,17 @@ export const PhysicsGame = () => {
     finalAnswer,
     finalFeedback,
     isGameComplete,
+    completedRequiredSteps,
+    shownHints,
+    revealedAnswers,
     isLoading,
     startGame,
     submitStep,
     submitFinalAnswer,
     resetGame,
-    moveToFinalAnswer
+    moveToFinalAnswer,
+    revealAnswer,
+    revealAllAnswers
   } = usePhysicsGame();
 
   return (
@@ -55,7 +60,14 @@ export const PhysicsGame = () => {
       {phase === 'STEP_DESCRIPTION' && currentGoal && (
         <div className="game-content">
           <div className="challenge-panel">
-            <GoalDisplay goal={currentGoal} />
+            <GoalDisplay 
+              goal={currentGoal} 
+              completedSteps={completedRequiredSteps} 
+              shownHints={shownHints} 
+              revealedAnswers={revealedAnswers}
+              onRevealAnswer={revealAnswer}
+              onRevealAllAnswers={revealAllAnswers}
+            />
           </div>
           
           <div className="interaction-panel">
@@ -86,7 +98,14 @@ export const PhysicsGame = () => {
       {phase === 'PROVIDING_FINAL_ANSWER' && currentGoal && (
         <div className="game-content">
           <div className="challenge-panel">
-            <GoalDisplay goal={currentGoal} />
+            <GoalDisplay 
+              goal={currentGoal} 
+              completedSteps={completedRequiredSteps} 
+              shownHints={shownHints} 
+              revealedAnswers={revealedAnswers}
+              onRevealAnswer={revealAnswer}
+              onRevealAllAnswers={revealAllAnswers}
+            />
           </div>
           
           <div className="interaction-panel">

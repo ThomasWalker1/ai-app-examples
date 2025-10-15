@@ -33,6 +33,10 @@ interface PhysicsGameSession {
   finalAnswer: string;
   finalFeedback: FinalAnswerFeedback | null;
   isGameComplete: boolean;
+  completedRequiredSteps: boolean[];
+  shownHints: boolean[];
+  failedAttempts: number[];
+  revealedAnswers: boolean[];
 }
 
 export const usePhysicsGame = () => {
@@ -43,7 +47,11 @@ export const usePhysicsGame = () => {
     currentStepNumber: 1,
     finalAnswer: '',
     finalFeedback: null,
-    isGameComplete: false
+    isGameComplete: false,
+    completedRequiredSteps: [],
+    shownHints: [],
+    failedAttempts: [],
+    revealedAnswers: []
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -93,8 +101,16 @@ IMPORTANT:
 
 Examples of good descriptive problems:
 - "A physics student wants to determine Earth's gravitational acceleration using experimental methods. They have access to various equipment and can design their own experiment. What value do they find?"
-- "An engineer needs to predict how far a projectile will travel horizontally when launched from a specific height. The projectile has known properties and the launch conditions can be measured. What is the horizontal distance?"
-- "A scientist is studying the motion of an object and needs to determine its final speed after undergoing certain changes. The object's initial conditions and the forces acting on it can be observed. What is the final speed?"
+
+For each required step, provide both:
+1. A clear step description (what needs to be done)
+2. A helpful hint (what the student should think about or consider)
+
+Example step structure:
+{
+  "step": "Measure the period of a simple pendulum",
+  "hint": "Consider what factors might affect the pendulum's period and how you could measure time accurately"
+}
 
 ${mathWithMarkdown}`;
 
@@ -109,7 +125,11 @@ ${mathWithMarkdown}`;
         phase: 'STEP_DESCRIPTION',
         currentGoal: response.data,
         steps: [],
-        currentStepNumber: 1
+        currentStepNumber: 1,
+        completedRequiredSteps: new Array(response.data.requiredSteps.length).fill(false),
+        shownHints: new Array(response.data.requiredSteps.length).fill(false),
+        failedAttempts: new Array(response.data.requiredSteps.length).fill(0),
+        revealedAnswers: new Array(response.data.requiredSteps.length).fill(false)
       }));
     } catch (error: unknown) {
       if (error instanceof Error && error.name !== 'AbortError') {
@@ -143,6 +163,9 @@ The student does NOT see any description, setup details, or additional context a
 Full problem context (for your reference only):
 DESCRIPTION: ${session.currentGoal.description}
 
+REQUIRED STEPS TO COMPLETE THE PROBLEM:
+${session.currentGoal.requiredSteps.map((step, index) => `${index + 1}. ${step}`).join('\n')}
+
 Previous completed steps:
 ${previousStepsContext || 'None yet'}
 
@@ -155,12 +178,14 @@ Evaluate this step and provide feedback. Consider:
 3. Is the step complete enough to move forward?
 4. What suggestions do you have for improvement?
 5. Does the student's approach make physical sense?
+6. Which of the required steps (if any) does this student step accomplish?
 
 CRITICAL: Since the student only sees the goal title "${session.currentGoal.goal}" and has no other context, your feedback should:
 - Provide helpful context about what this type of problem typically involves
 - Guide them toward understanding the relevant physics concepts
 - Help them think about what information they might need
 - Do NOT assume they know any setup details or specific conditions
+- If the step accomplishes one of the required steps, indicate which one (0-based index)
 
 ${mathWithMarkdown}`;
 
@@ -177,19 +202,37 @@ ${mathWithMarkdown}`;
         isComplete: response.data.isComplete
       };
 
+      // Update completed required steps if a step was completed
+      let newCompletedSteps = [...session.completedRequiredSteps];
+      let newShownHints = [...session.shownHints];
+      let newFailedAttempts = [...session.failedAttempts];
+      
+      if (response.data.isComplete && response.data.completedRequiredStep !== undefined) {
+        newCompletedSteps[response.data.completedRequiredStep] = true;
+      } else {
+        // Track failed attempts and show hints after 2 failed attempts
+        const currentStepIndex = session.currentStepNumber - 1;
+        if (currentStepIndex < newFailedAttempts.length) {
+          newFailedAttempts[currentStepIndex]++;
+          if (newFailedAttempts[currentStepIndex] >= 2 && !newShownHints[currentStepIndex]) {
+            newShownHints[currentStepIndex] = true;
+          }
+        }
+      }
+
       setSession(prev => ({
         ...prev,
         steps: [...prev.steps, newStep],
-        currentStepNumber: response.data.isComplete ? prev.currentStepNumber + 1 : prev.currentStepNumber
+        currentStepNumber: response.data.isComplete ? prev.currentStepNumber + 1 : prev.currentStepNumber,
+        completedRequiredSteps: newCompletedSteps,
+        shownHints: newShownHints,
+        failedAttempts: newFailedAttempts
       }));
 
-      // If the step is complete and we have enough steps, suggest moving to final answer
-      if (response.data.isComplete && session.steps.length >= 2) {
-        // Check if we should move to final answer phase
-        const completedSteps = session.steps.filter(step => step.feedback?.isComplete).length;
-        if (completedSteps >= 3) { // Require at least 3 completed steps
-          setSession(prev => ({ ...prev, phase: 'PROVIDING_FINAL_ANSWER' }));
-        }
+      // Check if all required steps are completed
+      const allStepsCompleted = newCompletedSteps.every(completed => completed);
+      if (allStepsCompleted) {
+        setSession(prev => ({ ...prev, phase: 'PROVIDING_FINAL_ANSWER' }));
       }
     } catch (error: unknown) {
       if (error instanceof Error && error.name !== 'AbortError') {
@@ -264,13 +307,33 @@ ${mathWithMarkdown}`;
       currentStepNumber: 1,
       finalAnswer: '',
       finalFeedback: null,
-      isGameComplete: false
+      isGameComplete: false,
+      completedRequiredSteps: [],
+      shownHints: [],
+      failedAttempts: [],
+      revealedAnswers: []
     });
     setIsLoading(false);
   }, [cancelPendingRequests]);
 
   const moveToFinalAnswer = useCallback(() => {
     setSession(prev => ({ ...prev, phase: 'PROVIDING_FINAL_ANSWER' }));
+  }, []);
+
+  const revealAnswer = useCallback((stepIndex: number) => {
+    setSession(prev => ({
+      ...prev,
+      revealedAnswers: prev.revealedAnswers.map((revealed, index) => 
+        index === stepIndex ? true : revealed
+      )
+    }));
+  }, []);
+
+  const revealAllAnswers = useCallback(() => {
+    setSession(prev => ({
+      ...prev,
+      revealedAnswers: prev.revealedAnswers.map(() => true)
+    }));
   }, []);
 
   return {
@@ -281,11 +344,16 @@ ${mathWithMarkdown}`;
     finalAnswer: session.finalAnswer,
     finalFeedback: session.finalFeedback,
     isGameComplete: session.isGameComplete,
+    completedRequiredSteps: session.completedRequiredSteps,
+    shownHints: session.shownHints,
+    revealedAnswers: session.revealedAnswers,
     isLoading,
     startGame,
     submitStep,
     submitFinalAnswer,
     resetGame,
-    moveToFinalAnswer
+    moveToFinalAnswer,
+    revealAnswer,
+    revealAllAnswers
   };
 };
