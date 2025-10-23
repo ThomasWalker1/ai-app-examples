@@ -1,0 +1,1 @@
+"""Script to summarize students' problem-solving personality from transcript."""
